@@ -39,7 +39,10 @@ export const classOne = {
             if(one.length){
                 let studs = []
                 one[0].students.filter((s)=>{
-                    studs.push(s.student_id); 
+                    if(s.student_id)
+                        studs.push(s.student_id); 
+                    else
+                    studs.push(s);
                 })
                 one[0].students = studs;
                 state.one = one[0]
@@ -56,9 +59,10 @@ export const classOne = {
                 "status": "",
             });
         },
-        fetchOne: async({  commit, rootState  }, { classId }) => {
+        fetchOne: async({  commit, rootState, dispatch  }, { classId }) => {
             commit('inProgress', true);
             try {
+                await dispatch('classList/fetchList',{}, {root:true});
                 const list = rootState.classList.list;
                 commit('setFetchedRecord', {list, classId});
             }
@@ -69,9 +73,10 @@ export const classOne = {
                 commit('inProgress', false);
             }
         },
-        fetchRecordForView: async({  commit, state, rootState  }, { classId }) => {
+        fetchRecordForView: async({  commit, state, rootState, dispatch  }, { classId }) => {
             commit('inProgress', true);
             try {
+                await dispatch('classList/fetchList',{}, {root:true});
                 const list = rootState.classList.list;
                 commit('setFetchedRecord', {list, classId});
                 let resp = await doFetchOne(state.one);
@@ -84,18 +89,17 @@ export const classOne = {
                 commit('inProgress', false);
             }
         },
-        create: async({ commit, state, rootState }) => {
+        create: async({ commit, state, dispatch, rootState }) => {
             commit('inProgress', true);
             try {
-                debugger
                 if (undefined === state.one.id) {
+                    await dispatch('classList/fetchList',{}, {root:true});
                     let newClassId = rootState.classList.list? rootState.classList.list.length:0;
                     commit('setDataForNewRec', {id: newClassId+1});
                     const created = await doPostOne((state.one));
                     commit('setOne', (created));
                     return { new: true, resp:created };
                 } else {
-                    debugger
                     commit('setDataForNewRec', {id: state.one.id});
                     await doPostOne((state.one));
                     commit('inProgress', false);

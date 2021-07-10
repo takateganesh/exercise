@@ -8,15 +8,14 @@
     <v-card flat>
       <v-card-title> <p class="mb-0">Class Form</p></v-card-title>
       <v-divider class="mb-3"></v-divider>
-      <v-row class="mb-12">
-        <v-col cols="12" sm="8">
+      <v-card-text>
           <ClassFormWidget
             :classId="classId"
             @canceled="toPage"
             @submitted="toPage"
           />
-        </v-col> </v-row
-    ></v-card>
+      </v-card-text>
+      </v-card>
   </div>
 </template>
 <script>
@@ -47,18 +46,11 @@ export default {
     }
   },
   methods: {
-    toPage(id) {
-      if (id) {
-        this.$router.push({
-          name: "ClassViewPage",
-          params: { classId: id },
-        });
-      } else {
+    toPage() {
         this.$router.push({
           name: "ClassListPage",
         });
       }
-    },
   },
 };
 </script>

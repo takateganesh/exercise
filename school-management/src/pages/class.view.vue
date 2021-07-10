@@ -6,22 +6,34 @@
       </v-col>
     </v-row>
     <v-card flat>
-      <v-card-title> <p class="mb-0">Class Information</p></v-card-title>
-      <v-divider class="mb-3"></v-divider>
-      <v-row no-gutters>
-        <v-col cols="12" sm="8">
-          <p><b>School Name:</b> </p>
-          <p><b>Status:</b> </p>
-        <v-divider></v-divider>
-        <h3>Class Students</h3>
-        <v-divider></v-divider>
-        <div>
-          <p><b>Roll No:</b> </p>
-          <p><b>Name:</b> </p>
-          <p><b>Joining Date:</b> </p>
-        </div>
-      </v-col>
-    </v-row>
+      <v-card-title>Class Information</v-card-title>
+      <v-divider class="mb-0"></v-divider>
+      <v-card-text>
+        <v-row v-if="one">
+          <v-col cols="12" class="pt-0">
+            <h4>Class :</h4>
+            <p class="mb-0 pl-4"><b>School Name:</b> {{ one.schoolName }}</p>
+            <p class="mb-0 pl-4"><b>Status:</b> {{ one.status }}</p>
+            <v-divider></v-divider>
+            <h4>Students :</h4>
+            <ol type="number" class="pl-4">
+              <li v-for="(item, index) in one.studentsInfo" :key="index">
+                <p class="mb-0"><b>Roll No:</b> {{ item.rollno }}</p>
+                <p class="mb-0">
+                  <b>Name:</b> {{ item.firstname }} {{ item.lastname }}
+                </p>
+                <p class="mb-1">
+                  <b>Joining Date:</b> {{ item.dateOfJoining }}
+                </p>
+                <v-divider></v-divider>
+              </li>
+            </ol>
+          </v-col>
+        </v-row>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn type="button" color="success" small v-on:click="back()">Back</v-btn>
+      </v-card-actions>
     </v-card>
   </div>
 </template>
@@ -35,16 +47,21 @@ export default {
       one: (state) => state.classOne.one,
       inProgress: (state) => state.classOne.inProgress,
     }),
-    classId: function(){
-      return this.$route.params.classId
-    }
+    classId: function () {
+      return this.$route.params.classId;
+    },
   },
   created() {
-    /*eslint-disable*/
-    debugger
     this.$store.dispatch("classOne/fetchRecordForView", {
-      classId: this.classId
+      classId: this.classId,
     });
+  },
+  methods: {
+    back() {
+      this.$router.push({
+        name: "ClassListPage",
+      });
+    },
   },
 };
 </script>
