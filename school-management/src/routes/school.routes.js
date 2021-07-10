@@ -5,6 +5,8 @@ import SchoolLayout from '@/components/SchoolLayout';
 import ClassViewPage from '@/pages/class.view';
 import ClassListPage from '@/pages/classes';
 import ClassEditPage from '@/pages/class.edit';
+import StudentListPage from '@/pages/classes';
+
 //import StudentEditPage from '@/pages/student.edit';
 
 Vue.use(Router);
@@ -31,6 +33,11 @@ export const router = new Router({
                 path: 'class/:classId/view',
                 name: 'ClassViewPage',
                 component: ClassViewPage,
+            },
+            {
+                path: '/students',
+                name: 'StudentListPage',
+                component: StudentListPage,
             },
             // {
             //     path: 'class/:classId/student/:studentId/edit',
