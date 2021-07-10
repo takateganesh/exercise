@@ -1,6 +1,5 @@
 import { doPostOne, doFetchOne } from '@/services/class.service';
 import { getField, updateField } from 'vuex-map-fields';
-/*eslint-disable*/
 export const classOne = {
     namespaced: true,
     state: {

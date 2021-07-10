@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import * as class1 from '@/json/class/class1'
 import * as class2 from '@/json/class/class2'
 import * as class3 from '@/json/class/class3'
@@ -40,6 +39,7 @@ export const doFetchOne = ((rec) => {
     let studentsList = students.default;
     let studs = rec.students? rec.students: [];
     let newStudents = []
+    //attaching student information to selected record
     for(let i=0; i<studs.length; i++){
         for(let j=0; j<studentsList.length; j++){
             if(studs[i]==studentsList[j].id)
@@ -52,18 +52,3 @@ export const doFetchOne = ((rec) => {
     rec.studentsInfo = newStudents;
     return rec;
 })
-
-/*
-
-export const doPatchOne = wrapRequest(({hub}) => {
-    const requestOptions = {
-        method: 'PATCH',
-      headers: {
-            'Content-Type': 'application/json', 'Accept': 'application/vnd.pgrst.object+json',
-            'Prefer': 'return=representation', ...getHubAuthHeader(oakHubName)
-        },
-        body: JSON.stringify(hub)
-    };
-    return fetch(`${oakApiUrl}/hub?name=eq.${hub.name}`, requestOptions)
-})
-*/ 
