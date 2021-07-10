@@ -1,4 +1,5 @@
-import { doFetchList,doFetchSchoolList,// doDeleteSelected 
+import {
+    doFetchList, doFetchSchoolList,// doDeleteSelected 
 } from '@/services/class.service'
 import { getField, updateField } from 'vuex-map-fields';
 
@@ -19,13 +20,13 @@ export const classList = {
         inProgress(state, yesOrNo) {
             state.inProgress = yesOrNo
         },
-        setList(state, list){
+        setList(state, list) {
             state.list = list
         },
-        setSchoolList(state, list){
+        setSchoolList(state, list) {
             state.schoolList = list
         },
-        deleteSelectedClass(state, classId){
+        deleteSelectedStudent(state, classId) {
             let list = state.list.filter((c) => {
                 if (classId !== c.id) {
                     return c;
@@ -39,12 +40,12 @@ export const classList = {
             commit('inProgress', true);
             try {
                 const list = await doFetchList();
-                    if (list) {
-                       commit('setList', list);
-                    } else
-                        commit('setList', []);
-                    
-                   return list;
+                if (list) {
+                    commit('setList', list);
+                } else
+                    commit('setList', []);
+
+                return list;
             }
             finally {
                 commit('inProgress', false);
@@ -54,21 +55,21 @@ export const classList = {
             commit('inProgress', true);
             try {
                 const list = await doFetchSchoolList();
-                    if (list) {
-                       commit('setSchoolList', list);
-                    } else
-                        commit('setSchoolList', []);
-                    
-                   return list;
+                if (list) {
+                    commit('setSchoolList', list);
+                } else
+                    commit('setSchoolList', []);
+
+                return list;
             }
             finally {
                 commit('inProgress', false);
             }
         },
-        deleteSelected: async ({ commit },{id}) => {
+        deleteSelected: async ({ commit }, { id }) => {
             commit('inProgress', true);
             try {
-                commit('deleteSelectedClass', id);
+                commit('deleteSelectedStudent', id);
                 /*const list = await doDeleteSelected({id});
                     if (list) {
                        commit('setList', list);

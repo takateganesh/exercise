@@ -16,6 +16,9 @@
           :items-per-page="itemsPerPage"
           @item-selected="itemSelected"
         >
+          <template v-slot:[`item.name`]="{ item }">
+            {{ item.firstname }} {{ item.middlename }} {{ item.lastname }}
+          </template>
         </v-data-table>
       </v-col>
     </v-row>
@@ -24,36 +27,36 @@
 
 <script>
 export default {
-  name: "ClassListPage",
+  name: "StudentListPage",
   data() {
     return {
       selectedRec: [],
       itemsPerPage: 10,
       headers: [
         {
-          text: "Id",
+          text: "Roll No",
           align: "center",
           sortable: true,
-          value: "id",
+          value: "rollno",
         },
         {
-          text: "School Name",
+          text: "Name",
           align: "center",
           sortable: true,
-          value: "schoolName",
+          value: "name",
         },
         {
-          text: "Status",
+          text: "Join Date",
           align: "center",
           sortable: true,
-          value: "status",
+          value: "dateOfJoining",
         },
       ],
     };
   },
   computed: {
     list: function () {
-      return this.$store.state.classList.list;
+      return this.$store.state.studentList.list;
     },
   },
   methods: {
@@ -65,7 +68,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("classList/fetchList");
+    this.$store.dispatch("studentList/fetchList");
   },
 };
 </script>

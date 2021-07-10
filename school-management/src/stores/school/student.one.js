@@ -1,6 +1,6 @@
-import { doPostOne, doFetchOne } from '@/services/class.service';
+import { doPostOne, doFetchOne } from '@/services/student.service';
 import { getField, updateField } from 'vuex-map-fields';
-export const classOne = {
+export const studentOne = {
     namespaced: true,
     state: {
         one: {},
@@ -17,33 +17,12 @@ export const classOne = {
         inProgress(state, yesOrNo) {
             state.inProgress = yesOrNo
         },
-        setDataForNewRec(state, options) {
-            state.one.id = options.id;
-            if (state.one.students.length) {
-                let studs = [];
-                state.one.students.filter((s) => {
-                    studs.push({
-                        student_id: s.id,
-                        assignment: ""
-                    })
-                });
-                state.one.students = studs
-            }
-        },
         setFetchedRecord(state, options) {
             let one = options.list.filter((c) => {
-                if (c.id == options.classId)
+                if (c.id == options.studentId)
                     return c;
             });
             if (one.length) {
-                let studs = []
-                one[0].students.filter((s) => {
-                    if (s.student_id)
-                        studs.push(s.student_id);
-                    else
-                        studs.push(s);
-                })
-                one[0].students = studs;
                 state.one = one[0]
             } else
                 state.one = []
@@ -53,17 +32,19 @@ export const classOne = {
         new({ commit }) {
             commit('inProgress', false);
             commit('setOne', {
-                "school_id": "",
-                "students": [],
-                "status": "",
+                "rollno": "",
+                "lastname": "",
+                "middlename": "",
+                "firstname": "",
+                "dateOfJoining": ""
             });
         },
-        fetchOne: async ({ commit, rootState, dispatch }, { classId }) => {
+        fetchOne: async ({ commit, rootState, dispatch }, { studentId }) => {
             commit('inProgress', true);
             try {
-                await dispatch('classList/fetchList', {}, { root: true });
-                const list = rootState.classList.list;
-                commit('setFetchedRecord', { list, classId });
+                await dispatch('studentList/fetchList', {}, { root: true });
+                const list = rootState.studentList.list;
+                commit('setFetchedRecord', { list, studentId });
             }
             // eslint-disable-next-line no-useless-catch
             catch (err) {
@@ -72,12 +53,12 @@ export const classOne = {
                 commit('inProgress', false);
             }
         },
-        fetchRecordForView: async ({ commit, state, rootState, dispatch }, { classId }) => {
+        fetchRecordForView: async ({ commit, state, rootState, dispatch }, { studentId }) => {
             commit('inProgress', true);
             try {
-                await dispatch('classList/fetchList', {}, { root: true });
-                const list = rootState.classList.list;
-                commit('setFetchedRecord', { list, classId });
+                await dispatch('studentList/fetchList', {}, { root: true });
+                const list = rootState.studentList.list;
+                commit('setFetchedRecord', { list, studentId });
                 let resp = await doFetchOne(state.one);
                 commit('setOne', resp);
             }
@@ -92,15 +73,13 @@ export const classOne = {
             commit('inProgress', true);
             try {
                 if (undefined === state.one.id) {
-                    await dispatch('classList/fetchList', {}, { root: true });
-                    let newClassId = rootState.classList.list ? rootState.classList.list.length : 0;
-                    commit('setDataForNewRec', { id: newClassId + 1 });
-                    const created = await doPostOne((state.one));
+                    await dispatch('studentList/fetchList', {}, { root: true });
+                    let newstudentId = rootState.studentList.list ? rootState.studentList.list.length : 0;
+                    const created = await doPostOne(Object.assign(state.one, { id: newstudentId + 1 }));
                     commit('setOne', (created));
                     return { new: true, resp: created };
                 } else {
-                    commit('setDataForNewRec', { id: state.one.id });
-                    await doPostOne((state.one));
+                    await doPostOne(state.one);
                     commit('inProgress', false);
                     return ({ update: true });
                 }

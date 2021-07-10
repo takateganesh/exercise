@@ -22,38 +22,38 @@
           </v-list-item>
         </router-link>
 
-          <v-hover v-slot:default="{ hover }">
-            <router-link
-              class="sidebar-router-link d-block text-decoration-none my-1"
-              :to="{ name: 'ClassListPage' }"
+        <v-hover v-slot:default="{ hover }">
+          <router-link
+            class="sidebar-router-link d-block text-decoration-none my-1"
+            :to="{ name: 'ClassListPage' }"
+          >
+            <v-list-item
+              class="px-4"
+              :class="hover ? ' background-purple-light' : 'white--text'"
             >
-              <v-list-item
-                class="px-4"
-                :class="hover ? ' background-purple-light' : 'white--text'"
+              <v-icon class="white--text">mdi-home</v-icon>
+              <v-list-item-title class="ml-3 white--text"
+                >Class</v-list-item-title
               >
-                <v-icon class="white--text">mdi-home</v-icon>
-                <v-list-item-title class="ml-3 white--text"
-                  >Class</v-list-item-title
-                >
-              </v-list-item>
-            </router-link>
-          </v-hover>
-          <v-hover v-slot:default="{ hover }">
-            <router-link
-              class="sidebar-router-link d-block text-decoration-none my-1"
-              :to="{ name: 'StudentListPage' }"
+            </v-list-item>
+          </router-link>
+        </v-hover>
+        <v-hover v-slot:default="{ hover }">
+          <router-link
+            class="sidebar-router-link d-block text-decoration-none my-1"
+            :to="{ name: 'StudentListPage' }"
+          >
+            <v-list-item
+              class="px-4"
+              :class="hover ? ' background-purple-light' : 'white--text'"
             >
-              <v-list-item
-                class="px-4"
-                :class="hover ? ' background-purple-light' : 'white--text'"
+              <v-icon class="white--text">mdi-account-multiple</v-icon>
+              <v-list-item-title class="ml-3 white--text"
+                >Students</v-list-item-title
               >
-                <v-icon class="white--text">mdi-account-multiple</v-icon>
-                <v-list-item-title class="ml-3 white--text"
-                  >Students</v-list-item-title
-                >
-              </v-list-item>
-            </router-link>
-          </v-hover>
+            </v-list-item>
+          </router-link>
+        </v-hover>
       </v-list>
     </v-navigation-drawer>
     <Header @actionMenu="onAction" />
@@ -81,10 +81,8 @@ export default {
   }),
   methods: {
     onAction() {
-      if(this.$vuetify.breakpoint.mdAndUp)
-        this.mini = !this.mini;
-      else
-        this.showMenu = !this.showMenu //for mobile devices
+      if (this.$vuetify.breakpoint.mdAndUp) this.mini = !this.mini;
+      else this.showMenu = !this.showMenu; //for mobile devices
     },
   },
 };

@@ -21,7 +21,7 @@ export const doFetchSchoolList = (() => {
     return schools.default;
 })
 
-export const doDeleteSelected = (({id}) => {
+export const doDeleteSelected = (({ id }) => {
     // DELETE method will be here to fetch all records
     let list = classes.filter((c) => {
         if (id !== c.school_id) {
@@ -37,13 +37,12 @@ export const doPostOne = ((newRec) => {
 
 export const doFetchOne = ((rec) => {
     let studentsList = students.default;
-    let studs = rec.students? rec.students: [];
+    let studs = rec.students ? rec.students : [];
     let newStudents = []
     //attaching student information to selected record
-    for(let i=0; i<studs.length; i++){
-        for(let j=0; j<studentsList.length; j++){
-            if(studs[i]==studentsList[j].id)
-            {
+    for (let i = 0; i < studs.length; i++) {
+        for (let j = 0; j < studentsList.length; j++) {
+            if (studs[i] == studentsList[j].id) {
                 newStudents.push(studentsList[j]);
                 break;
             }

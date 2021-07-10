@@ -9,13 +9,13 @@
       <v-card-title> <p class="mb-0">Class Form</p></v-card-title>
       <v-divider class="mb-3"></v-divider>
       <v-card-text>
-          <ClassFormWidget
-            :classId="classId"
-            @canceled="toPage"
-            @submitted="toPage"
-          />
+        <ClassFormWidget
+          :classId="classId"
+          @canceled="toPage"
+          @submitted="toPage"
+        />
       </v-card-text>
-      </v-card>
+    </v-card>
   </div>
 </template>
 <script>
@@ -47,10 +47,10 @@ export default {
   },
   methods: {
     toPage() {
-        this.$router.push({
-          name: "ClassListPage",
-        });
-      }
+      this.$router.push({
+        name: "ClassListPage",
+      });
+    },
   },
 };
 </script>

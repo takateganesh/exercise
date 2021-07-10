@@ -1,4 +1,3 @@
-import * as schools from '@/json/schools'
 import * as students from '@/json/student/student'
 
 export const doFetchList = (() => {
@@ -6,7 +5,6 @@ export const doFetchList = (() => {
     return students.default;
 })
 
-export const doFetchSchoolList = (() => {
-    // GET method will be here to fetch all records
-    return schools;
+export const doPostOne = ((newRec) => {
+    console.log(newRec);
 })

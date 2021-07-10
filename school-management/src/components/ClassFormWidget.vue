@@ -26,7 +26,7 @@
             item-text="firstname"
             item-value="id"
             multiple
-            :rules="commonValidationRules.requiredRules"
+            :rules="commonValidationRules.minSelectOneOption"
           ></v-select>
         </v-col>
 
@@ -51,7 +51,7 @@
             dense
             v-model="status"
             name="status"
-            type="url"
+            type="text"
             id="status"
             :rules="commonValidationRules.requiredRules"
           ></v-text-field>
@@ -93,7 +93,7 @@ export default {
   props: ["classId"],
   data() {
     return {
-      commonValidationRules
+      commonValidationRules,
     };
   },
   computed: {
@@ -104,10 +104,10 @@ export default {
       "one.status",
       "inProgress",
     ]),
-    schoolList: function(){
+    schoolList: function () {
       return this.$store.state.classList.schoolList;
     },
-    studentList: function(){
+    studentList: function () {
       return this.$store.state.studentList.list;
     },
   },
@@ -115,28 +115,27 @@ export default {
     async onSubmit(e) {
       e.preventDefault();
       if (this.$refs.form.validate()) {
-          await this.$store
-            .dispatch("classOne/create")
-            .then((flag) => {
-              let message = ""
-              if(flag.new)
-              message = "Class created successfully."
-              else
-                message = "Class updated successfully."
+        await this.$store
+          .dispatch("classOne/create")
+          .then((flag) => {
+            let message = "";
+            if (flag.new)
+              message = "Class created successfully.  Please see the console";
+            else message = "Class updated successfully.";
 
-              this.$snotify.success(message, {
-                position: "rightTop",
-                showProgressBar: false,
-              });
-              this.$emit("submitted");
-            })
-            .catch((error) => {
-              this.$snotify.error(error, {
-                position: "rightTop",
-                showProgressBar: false,
-              });
-              this.$emit("canceled");
+            this.$snotify.success(message, {
+              position: "rightTop",
+              showProgressBar: false,
             });
+            this.$emit("submitted");
+          })
+          .catch((error) => {
+            this.$snotify.error(error, {
+              position: "rightTop",
+              showProgressBar: false,
+            });
+            this.$emit("canceled");
+          });
       }
     },
     cancel() {
@@ -146,7 +145,6 @@ export default {
   created() {
     this.$store.dispatch("classList/fetchSchoolList");
     this.$store.dispatch("studentList/fetchList");
-    this.$store.dispatch("classList/fetchList");
   },
 };
 </script>

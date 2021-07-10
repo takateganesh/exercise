@@ -1,4 +1,5 @@
-import { doFetchList,// doDeleteSelected 
+import {
+    doFetchList,// doDeleteSelected 
 } from '@/services/student.service'
 import { getField, updateField } from 'vuex-map-fields';
 
@@ -19,13 +20,13 @@ export const studentList = {
         inProgress(state, yesOrNo) {
             state.inProgress = yesOrNo
         },
-        setList(state, list){
+        setList(state, list) {
             state.list = list
         },
-        setSchoolList(state, list){
+        setSchoolList(state, list) {
             state.schoolList = list
         },
-        deleteSelectedStudent(state, studId){
+        deleteSelectedStudent(state, studId) {
             let list = state.list.filter((c) => {
                 if (studId !== c.id) {
                     return c;
@@ -39,18 +40,18 @@ export const studentList = {
             commit('inProgress', true);
             try {
                 const list = await doFetchList();
-                    if (list) {
-                       commit('setList', list);
-                    } else
-                        commit('setList', []);
-                    
-                   return list;
+                if (list) {
+                    commit('setList', list);
+                } else
+                    commit('setList', []);
+
+                return list;
             }
             finally {
                 commit('inProgress', false);
             }
         },
-        deleteSelected: async ({ commit },{id}) => {
+        deleteSelected: async ({ commit }, { id }) => {
             commit('inProgress', true);
             try {
                 commit('deleteSelectedStudent', id);

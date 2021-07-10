@@ -1,4 +1,3 @@
-
 export const commonValidationRules = {
   noRules: [],
   requiredRules: [
@@ -8,7 +7,7 @@ export const commonValidationRules = {
     v => !!v || "E-mail is required",
     v => /.+@.+\..+/.test(v) || "E-mail must be valid"
   ],
-  minSelectOneOption:[
+  minSelectOneOption: [
     (v) => !!v || 'This field is required',
     (v) => (v && v.length >= 1) || 'Select at least one option'
   ],

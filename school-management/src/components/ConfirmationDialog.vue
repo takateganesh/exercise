@@ -12,9 +12,9 @@
         <v-card-title>
           <v-row no-gutters class="d-flex align-center">
             <v-col cols="11">
-              <span
-                class="mt-1 mb-0"
-              >{{ confirmationDetails.confirmationMessage }}</span>
+              <span class="mt-1 mb-0">{{
+                confirmationDetails.confirmationMessage
+              }}</span>
             </v-col>
             <v-col cols="1" class="text-right">
               <router-link to class="text-decoration-none black--text">
@@ -32,21 +32,23 @@
                   tile
                   depressed
                   :outlined="hover"
-                  :color="hover?'white':'primary'"
-                  :class="hover?'primary--text':'white--text'"
+                  :color="hover ? 'white' : 'primary'"
+                  :class="hover ? 'primary--text' : 'white--text'"
                   @click="onAction(false)"
-                >CANCEL</v-btn>
+                  >CANCEL</v-btn
+                >
               </v-hover>
               <v-hover v-slot="{ hover }">
                 <v-btn
                   class="text-uppercase ma-2"
                   :outlined="hover"
-                  :color="hover?'white':'error'"
-                  :class="hover?'error--text':'white--text'"
+                  :color="hover ? 'white' : 'error'"
+                  :class="hover ? 'error--text' : 'white--text'"
                   tile
                   depressed
                   @click="onAction(true)"
-                >OK</v-btn>
+                  >OK</v-btn
+                >
               </v-hover>
             </v-col>
           </v-row>
@@ -57,18 +59,18 @@
 </template>
 <script>
 export default {
-  name: 'ConfirmationDialog',
+  name: "ConfirmationDialog",
   components: {},
-  props: ['confirmationDialog', 'confirmationDetails'],
+  props: ["confirmationDialog", "confirmationDetails"],
   computed: {
-    confirmDialog: function() {
-      return this.confirmationDialog
-    }
+    confirmDialog: function () {
+      return this.confirmationDialog;
+    },
   },
   methods: {
-    onAction: function(action) {
-      this.$emit('action-remove', { submit: action })
-    }
-  }
-}
+    onAction: function (action) {
+      this.$emit("action-remove", { submit: action });
+    },
+  },
+};
 </script>

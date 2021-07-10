@@ -32,7 +32,9 @@
         </v-row>
       </v-card-text>
       <v-card-actions>
-        <v-btn type="button" color="success" small v-on:click="back()">Back</v-btn>
+        <v-btn type="button" color="success" small v-on:click="back()"
+          >Back</v-btn
+        >
       </v-card-actions>
     </v-card>
   </div>
