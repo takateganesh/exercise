@@ -81,7 +81,10 @@ export default {
   }),
   methods: {
     onAction() {
-      this.mini = !this.mini;
+      if(this.$vuetify.breakpoint.mdAndUp)
+        this.mini = !this.mini;
+      else
+        this.showMenu = !this.showMenu //for mobile devices
     },
   },
 };
